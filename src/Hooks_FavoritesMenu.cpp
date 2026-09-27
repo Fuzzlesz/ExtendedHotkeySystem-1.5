@@ -307,6 +307,6 @@ namespace EHKS
 		REL::Relocation<std::uintptr_t> vTableMenuEventHandler(RE::VTABLE_FavoritesMenu[1]);
 
 		_CanProcess = vTableMenuEventHandler.write_vfunc(0x1, &FavoritesMenuEx::CanProcess_Hook);
-		_ProcessButton = vTableMenuEventHandler.write_vfunc(0x7, &FavoritesMenuEx::ProcessButton_Hook);
+		_ProcessButton = vTableMenuEventHandler.write_vfunc(0x5, &FavoritesMenuEx::ProcessButton_Hook);
 	}
 }

@@ -13,7 +13,7 @@ namespace EHKS
 		if (a_form)
 		{
 			using func_t = std::uint64_t (*)(void*, std::uint32_t, RE::Actor*, RE::TESForm*);
-			REL::Relocation<func_t> func(REL::ID{ 54707 });
+			REL::Relocation<func_t> func(REL::ID{ 53895 });
 			return func(nullptr, 0, RE::PlayerCharacter::GetSingleton(), a_form);
 		}
 		return false;
@@ -219,9 +219,9 @@ namespace EHKS
 
 		if (a_item->formType.get() == RE::FormType::Armor)
 		{
-			REL::Relocation<RE::BIPED_OBJECT (*)(RE::Actor*)> GetShieldObjectSlot(REL::ID{ 19630 });
-			REL::Relocation<bool (*)(RE::BGSBipedObjectForm*, RE::BIPED_OBJECT)> HasPartOf(REL::ID{ 14119 });
-			REL::Relocation<void (*)(RE::Actor*)> DoUpdateShield(REL::ID{ 40418 });
+			REL::Relocation<RE::BIPED_OBJECT (*)(RE::Actor*)> GetShieldObjectSlot(REL::ID{ 19204 });
+			REL::Relocation<bool (*)(RE::BGSBipedObjectForm*, RE::BIPED_OBJECT)> HasPartOf(REL::ID{ 14026 });
+			REL::Relocation<void (*)(RE::Actor*)> DoUpdateShield(REL::ID{ 39347 });
 
 			if (HasPartOf(static_cast<RE::TESObjectARMO*>(a_item), GetShieldObjectSlot(a_player)))
 			{
@@ -462,12 +462,12 @@ namespace EHKS
 
 	void FavoritesHandlerEx::InstallHook()
 	{
-		REL::ID favoritesHandler_IsHotkey_Hook{ 52258 };
+		REL::ID favoritesHandler_IsHotkey_Hook{ 51409 };
 		REL::GetTrampoline().write_call<6>(favoritesHandler_IsHotkey_Hook.address() + 0x2F, (uintptr_t)IsHotkey_Hook);
 		std::uint8_t codes[] = { 0x90, 0x90, 0x90, 0x90, 0x90 };
 		REL::WriteSafe(favoritesHandler_IsHotkey_Hook.address() + 0x2F + 0x6, codes, sizeof(codes));
 
 		REL::Relocation<std::uintptr_t> vTable(RE::VTABLE_FavoritesHandler[0]);
-		_ProcessButton = vTable.write_vfunc(0x7, &FavoritesHandlerEx::ProcessButton_Hook);
+		_ProcessButton = vTable.write_vfunc(0x5, &FavoritesHandlerEx::ProcessButton_Hook);
 	}
 }
